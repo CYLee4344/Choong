@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+	<resultMap id="productMap" type="study.spring.selection.model.Product">
+		<result property="product_no" column="product_no" />
+		<result property="product_name" column="product_name" />
+		<result property="product_price" column="product_price" />
+		<result property="product_content" column="product_content" />
+		<result property="product_brand" column="product_brand" />
+		<result property="product_category" column="product_category" />
+		<result property="product_img" column="product_img" />
+	</resultMap>
+	
+	<!-- 상품 조회 -->
+	<select id="productList" 
+		resultType="study.spring.selection.model.Product">
+		SELECT * FROM product;
+	</select>
+	
+	<!-- 상품 상세 -->
+	<select id="productDetail"
+		resultType="study.spring.selection.model.Product">
+		SELECT * FROM product WHERE product_no = #{product_no};	
+	</select>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CartMapper">
+	<resultMap id="cartMap" type="study.spring.selection.model.Cart">
+		<result property="cart_no" column="cart_no" />
+		<result property="user_no" column="user_no" />
+		<result property="product_no" column="product_no" />
+		<result property="amount" column="amount" />
+		<result property="color" column="color" />
+		<result property="size" column="size" />
+		<result property="delivery" column="delivery" />
+	</resultMap>
+	
+	<!-- 장바구니 담기 -->
+	<insert id="insert">
+		INSERT INTO cart (cart_no, user_no, product_no, amount, delivery, size, color)
+		VALUES (#{cart_no}, #{user_no}, #{product_no}, #{amount}, #{delivery}, #{size}, #{color});
+	</insert>
+	
+	<!-- 장바구니 목록 -->
+	<select id="listCart" resultType="study.spring.selection.model.Cart">
+		SELECT cart_no, c.user_no, p.product_no, product_name, product_price, product_brand, product_img, amount, size, color, delivery
+		FROM user u, cart c, product p
+		WHERE u.user_no = c.user_no AND p.product_no = c.product_no AND c.user_no = #{user_no};
+	</select>
+	
+	<!-- 결제페이지 목록 -->
+	<select id="listPay" resultType="study.spring.selection.model.Cart">
+		SELECT cart_no, c.user_no, p.product_no, product_name, product_price, product_brand, product_img, amount, size, color, delivery
+		FROM user u, cart c, product p
+		WHERE u.user_no = c.user_no AND p.product_no = c.product_no AND cart_no=#{cart_no};
+	</select>
+	
+	<!-- 동일상품인지 확인 -->
+	<select id="countCart" resultType="int">
+		SELECT COUNT(*) FROM cart
+		WHERE user_no = #{user_no}
+		AND product_no = #{product_no}
+	</select>
+	
+	<!-- 동일 상품이면 수량 수정 -->
+	<update id="updateCart">
+		UPDATE CART 
+		SET amount = amount + #{amount},
+			delivery = #{delivery},
+			color = #{color},
+			size = #{size}
+		WHERE user_no = #{user_no}
+		AND product_no = #{product_no}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteCart">
+		DELETE FROM cart WHERE cart_no = #{cart_no} AND user_no = #{user_no};
+	</delete>
+	
+	
+	<!-- 총 금액 -->
+	<select id="sumMoney" resultType="int">
+		SELECT IFNULL(p.product_price * amount, 0)
+		FROM cart c, product p
+		WHERE c.product_no = p.product_no AND user_no = #{user_no}
+	</select>
+	
+	<!-- 주문 생성 -->
+	<insert id="orderInsert">
+		INSERT INTO tbl_order (order_no, user_no, rec, postcode, address, address_detail, order_total)
+		VALUES (#{order_no}, #{user_no}, #{rec}, #{postcode}, #{address}, #{address_detail}, #{order_total});
+	</insert>
+	
+	<!-- 주문 상세 생성 -->
+	<insert id="orderDetailInsert">
+		INSERT INTO tbl_order_detail (order_detail_no, order_no, product_no, amount, delivery, size, color)
+		SELECT #{order_detail_no}, #{order_no}, #{product_no}, amount, delivery, size, color
+		FROM cart c
+		WHERE #{product_no} = c.product_no;
+	</insert>
+</mapper>
