@@ -6,6 +6,7 @@ import lombok.Data;
 public class OrderDetail {
 	
 	// 주문
+	private int order_detail_no;
 	private String order_no;		
 	private String rec;
 	private String postcode;
