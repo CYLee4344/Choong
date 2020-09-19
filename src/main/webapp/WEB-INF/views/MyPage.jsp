@@ -31,7 +31,7 @@
     <div id="menu_bottom_container">
         <ul id="menu_bottom">
             <li><a href="Update_Info.do">개인정보변경</a></li>
-            <li><a href="Delivery.do">주문/배송조회</a></li>
+            <li><a href="${pageContext.request.contextPath}/orderList.do">주문/배송조회</a></li>
             <li><a href="QnA.do">QnA</a></li>
             <li><a href="Announcement.do">공지사항</a></li>
         </ul>

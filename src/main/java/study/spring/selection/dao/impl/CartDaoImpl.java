@@ -94,6 +94,24 @@ public class CartDaoImpl implements CartDao {
 		sqlSession.insert("CartMapper.orderDetailInsert", orderDetail);
 		
 	}
+	
+	// 주문내역
+	@Override
+	public List<OrderDetail> orderList(Order order) {
+		return sqlSession.selectList("CartMapper.orderList", order);
+	}
+
+	
+	
+	@Override
+	public List<Order> orderOuter(Order order) {
+		return sqlSession.selectList("CartMapper.orderOuter", order);
+	}
+
+	@Override
+	public List<OrderDetail> orderInner(Order order) {
+		return sqlSession.selectList("CartMapper.orderInner", order);
+	}
 
 
 }

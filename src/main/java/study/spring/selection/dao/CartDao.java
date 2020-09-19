@@ -20,4 +20,8 @@ public interface CartDao {
 	public void modifyCart(Cart cart);
 	public void insertOrder(Order order); // 주문 생성
 	public void insertOrderDetail(OrderDetail orderDetail); // 주문상세 생성
+	public List<OrderDetail> orderList(Order order);		// 주문 내역
+	
+	public List<Order> orderOuter(Order order); 
+	public List<OrderDetail> orderInner(Order order); 
 }

@@ -86,6 +86,24 @@ public class CartServiceImpl implements CartService {
 		dao.insertOrderDetail(orderDetail);
 		
 	}
+	
+	/** 주문 내역 */
+	@Override
+	public List<OrderDetail> orderList(Order order) {
+		return dao.orderList(order);
+	}
+
+	
+	
+	@Override
+	public List<Order> orderOuter(Order order) {
+		return dao.orderOuter(order);
+	}
+
+	@Override
+	public List<OrderDetail> orderInner(Order order) {
+		return dao.orderInner(order);
+	}
 
 
 	

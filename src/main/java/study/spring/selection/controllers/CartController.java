@@ -167,6 +167,39 @@ public class CartController {
 		return result;
 	}
 	
+	/** 주문 내역 페이지 */
+	/** 
+	 * @RequestMapping(value="/orderList.do", method=RequestMethod.GET)
+	 public ModelAndView orderList(HttpSession session, ModelAndView mav, Order order) throws Exception {
+
+		 User user = (User) session.getAttribute("user");
+		 int user_no = user.getUser_no();
+		 order.setUser_no(user_no);
+		 List<OrderDetail> orderList = service.orderList(order);
+		 mav.addObject("list", orderList);
+		 mav.setViewName("DeliveryTest");
+		 return mav;
+	 }
+	 * */
 	
-		
+	@RequestMapping(value="/orderList.do", method=RequestMethod.GET)
+	 public ModelAndView orderList(HttpSession session, ModelAndView mav, Order order) throws Exception {
+
+		 User user = (User) session.getAttribute("user");
+		 int user_no = user.getUser_no();
+		 order.setUser_no(user_no);
+		 
+		 List<Order> orderOuter = service.orderOuter(order);
+		 mav.addObject("outer", orderOuter);
+		 
+		 List<OrderDetail> orderInner = new ArrayList<OrderDetail>();
+		 for(Order o : orderOuter) {
+			 orderInner = service.orderInner(o);
+			 mav.addObject("inner", orderInner);
+		 }
+		 
+		 mav.setViewName("DeliveryTest");
+		 return mav;
+	
+	}	
 }

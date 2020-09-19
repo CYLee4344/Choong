@@ -88,13 +88,6 @@ public class HomeController {
 		return "FindByEmail";
 	}
 
-	@RequestMapping(value = "/Delivery.do")
-	public String Delivery() {
-
-		return "Delivery";
-	}
-
-
 	@RequestMapping(value = "/MyPage.do")
 	public String MyPage() {
 

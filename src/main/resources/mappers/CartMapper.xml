@@ -75,4 +75,32 @@
 		FROM cart c
 		WHERE #{product_no} = c.product_no;
 	</insert>
+	
+	<!-- 주문 상세정보 조회 -->
+	<select id="orderList" resultType="study.spring.selection.model.OrderDetail">
+		SELECT o.order_no, o.rec, o.postcode, o.address, o.address_detail, o.order_total, o.order_status, o.order_date,
+				d.delivery, d.amount, d.color, d.size,
+				p.product_name, p.product_price, p.product_brand, p.product_img
+		FROM tbl_order o
+		INNER JOIN tbl_order_detail d
+		ON o.order_no = d.order_no
+		INNER JOIN product p
+		ON d.product_no = p.product_no
+		WHERE o.user_no = #{user_no}
+	</select>
+	
+	<!-- 주문 outer -->
+	<select id="orderOuter" resultType="study.spring.selection.model.Order">
+		SELECT * FROM tbl_order WHERE user_no = #{user_no}
+	</select>
+	
+	<!-- 주문  inner -->
+	<select id="orderInner" resultType="study.spring.selection.model.OrderDetail">
+		SELECT d.delivery, d.amount, d.color, d.size,
+		p.product_name, p.product_price, p.product_brand, p.product_img
+		FROM tbl_order_detail d
+		INNER JOIN product p on d.product_no = p.product_no
+		WHERE d.order_no = #{order_no}
+	</select>
+	
 </mapper>
