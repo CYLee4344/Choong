@@ -109,8 +109,8 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public List<OrderDetail> orderInner(Order order) {
-		return sqlSession.selectList("CartMapper.orderInner", order);
+	public List<OrderDetail> orderInner(String order_no) {
+		return sqlSession.selectList("CartMapper.orderInner", order_no);
 	}
 
 

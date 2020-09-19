@@ -192,12 +192,16 @@ public class CartController {
 		 List<Order> orderOuter = service.orderOuter(order);
 		 mav.addObject("outer", orderOuter);
 		 
+//		 List<OrderDetail> orderInner = service.orderInner(order);
+//		 mav.addObject("inner", orderInner);
+//		 
 		 List<OrderDetail> orderInner = new ArrayList<OrderDetail>();
+		 String order_no = null;
 		 for(Order o : orderOuter) {
-			 orderInner = service.orderInner(o);
-			 mav.addObject("inner", orderInner);
+			 order_no = o.getOrder_no();
+			 orderInner.addAll(service.orderInner(order_no));	 
 		 }
-		 
+		 mav.addObject("inner", orderInner);
 		 mav.setViewName("DeliveryTest");
 		 return mav;
 	

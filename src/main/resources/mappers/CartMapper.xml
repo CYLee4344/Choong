@@ -96,7 +96,7 @@
 	
 	<!-- 주문  inner -->
 	<select id="orderInner" resultType="study.spring.selection.model.OrderDetail">
-		SELECT d.delivery, d.amount, d.color, d.size,
+		SELECT d.order_no, d.delivery, d.amount, d.color, d.size,
 		p.product_name, p.product_price, p.product_brand, p.product_img
 		FROM tbl_order_detail d
 		INNER JOIN product p on d.product_no = p.product_no

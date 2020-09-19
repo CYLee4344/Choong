@@ -70,7 +70,8 @@
 	                    </div>
 	                </div>
 	                
-                	<c:forEach var="row2" items="${inner}">          
+                	<c:forEach var="row2" items="${inner}">
+                		<c:if test="${row2.order_no == row.order_no}">                		       
 		                <ul class="order_item_ul">
 		                    <li>
 		                        <div class="order_item_content">
@@ -84,6 +85,7 @@
 		                        </div>
 		                    </li>
 		                </ul>
+		                </c:if>   
                		</c:forEach>
             	</div>
         	

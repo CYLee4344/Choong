@@ -23,5 +23,5 @@ public interface CartDao {
 	public List<OrderDetail> orderList(Order order);		// 주문 내역
 	
 	public List<Order> orderOuter(Order order); 
-	public List<OrderDetail> orderInner(Order order); 
+	public List<OrderDetail> orderInner(String order_no); 
 }

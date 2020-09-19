@@ -101,8 +101,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<OrderDetail> orderInner(Order order) {
-		return dao.orderInner(order);
+	public List<OrderDetail> orderInner(String order_no) {
+		return dao.orderInner(order_no);
 	}
 
 
